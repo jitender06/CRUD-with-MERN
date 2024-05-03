@@ -21,7 +21,43 @@ router.get('/', async (req, res) => {
     } catch (error) {
         res.status(500).json({error: error.message});
     }
-     
+})
+
+router.get("/:id", async(req, res) => {
+    try {
+        const id = req.params.id
+        const singledata = await User.findById({_id: id})
+        res.status(200).json(singledata);   
+    } catch (error) {
+        res.status(500).json({error: error.message})
+    }
+})
+
+router.delete("/:id", async (req, res) => {
+    try {
+        const id = req.params.id
+        const deleteUser = await User.findByIdAndDelete({_id: id})
+        res.status(200).json({message:"deleted successfully"})
+    } catch (error) {
+        res.status(500).json({error: error.message})
+    }
+})
+
+router.put("/:id", async(req, res) => {
+    try {
+        const id = req.params.id;
+        const data = req.body;
+        const response = await User.findByIdAndUpdate(id, data, {
+            new : true, //return the updated document
+            runValidators: true // run mongoose validator
+        } )
+        if(!response){
+            res.status(404).json({error: "user not found"})
+        }
+        res.status(200).json(response);
+    } catch (error) {
+        res.status(500).json({error:"internal server error"});
+    }
 })
 
 module.exports = router;

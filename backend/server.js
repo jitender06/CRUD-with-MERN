@@ -21,4 +21,4 @@ mongoose.connect(process.env.URI).then(() => {
     console.log(err)
 })
 
-app.use(userRoutes);
+app.use("/api/user/", userRoutes);
