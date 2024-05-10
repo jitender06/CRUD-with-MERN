@@ -1,4 +1,4 @@
-import { Card, CardContent, Container, Grid, Typography } from '@mui/material';
+import { Button, Card, CardActions, CardContent, Container, Grid, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 
 export default function ViewPost() {
@@ -25,7 +25,8 @@ export default function ViewPost() {
 
   }, []);
 
-  console.log(data); 
+  const deletePost = () => {}
+  const updatePost = () => {}
 
   return (
     <Container maxWidth="lg">
@@ -35,17 +36,17 @@ export default function ViewPost() {
         }
         {
           data?.map((item) => {
-            return <Grid key={item._id} item md={4}>
+            return <Grid key={item._id} item md={4} xs={12}>
               <Card sx={{ minWidth: 275 }}>
                 <CardContent>
                   <Typography sx={{ fontSize: 30 }} color="black"> {item.title} </Typography>
-
                   <Typography sx={{ fontSize: 10 }} color="text.secondary" gutterBottom> {item.email} </Typography>
                   <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom> {item.description.length > 50 ? item.description.slice(0, 400) : item.description }</Typography>
                 </CardContent>
-                {/* <CardActions>
-                  <Button size="small">Learn More</Button>
-                </CardActions> */}
+                <CardActions>
+                  <Button size="small" variant='contained' color="error" onClick={deletePost}>Delete</Button>
+                  <Button size="small" variant='contained' color="primary" onClick={updatePost}>Update</Button>
+                </CardActions>
               </Card>
             </Grid>
           })
