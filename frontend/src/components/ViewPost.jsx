@@ -25,7 +25,19 @@ export default function ViewPost() {
 
   }, []);
 
-  const deletePost = () => {}
+  const deletePost = async (id) => {
+    try {
+      const newData = await fetch(`http://localhost:5000/api/user/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }) 
+      fetchData
+    } catch (error) {
+      console.log("error:", error)
+    }
+  }
   const updatePost = () => {}
 
   return (
@@ -44,7 +56,7 @@ export default function ViewPost() {
                   <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom> {item.description.length > 50 ? item.description.slice(0, 400) : item.description }</Typography>
                 </CardContent>
                 <CardActions>
-                  <Button size="small" variant='contained' color="error" onClick={deletePost}>Delete</Button>
+                  <Button size="small" variant='contained' color="error" onClick={() => deletePost(item._id)}>Delete</Button>
                   <Button size="small" variant='contained' color="primary" onClick={updatePost}>Update</Button>
                 </CardActions>
               </Card>
